@@ -284,6 +284,6 @@
       const journal=$('journalText');if(journal&&state.journal)journal.value=state['journalText_'+state.currentLevel]||state.journalText||'';
       const progress=document.querySelector('.progress-top i');if(progress)progress.style.width=Math.max(4,Math.min(100,Math.round(lessonsDone/42*100)))+'%';
     };
-    $('today').textContent=new Intl.DateTimeFormat('en',{weekday:'long',month:'long',day:'numeric'}).format(new Date());render();syncLevelUI();buildCourseMap();document.querySelector('.side-foot button').onclick=showBadgeVault;renderArena();renderCertificate();if(state.name){$('landing').style.display='none';$('app').classList.add('active')}else{setTimeout(openWelcome,80)}
+    $('today').textContent=new Intl.DateTimeFormat('en',{weekday:'long',month:'long',day:'numeric'}).format(new Date());render();syncLevelUI();buildCourseMap();document.querySelector('.side-foot button').onclick=showBadgeVault;renderArena();renderCertificate();if(state.name){$('landing').style.display='none';$('app').classList.add('active')}
   </script>
 </body></html>
