@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>Tally Prime: Zero To Infinity</title>
+  <!-- Production hotfix: credential rendering + Infinity Arena navigation -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#0f172a;--slate:#1e293b;--muted:#64748b;--line:#e7edf3;--paper:#fff;--cream:#fffaf0;--amber:#f59e0b;--amber2:#ffbd3e;--green:#10b981;--blue:#2563eb;--soft:#f5f7fa;--shadow:0 18px 55px rgba(15,23,42,.10)}
+    *{box-sizing:border-box} body{margin:0;background:#f8fafc;color:var(--ink);font-family:Manrope,Arial,sans-serif} button,input,textarea{font:inherit} button{cursor:pointer;border:0}.shell{max-width:1440px;margin:auto;padding:20px 32px 40px}.nav{height:66px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:800;letter-spacing:-.3px}.brand-mark{width:35px;height:35px;border-radius:12px;background:var(--ink);color:var(--amber2);display:grid;place-items:center;font-weight:800;font-size:20px;box-shadow:0 5px 14px #cbd5e155}.nav-right{display:flex;gap:10px;align-items:center}.avatar{width:35px;height:35px;background:#fef3c7;color:#92400e;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800}.tiny{font-size:11px;color:var(--muted);font-weight:700}.progress-top{height:8px;width:100px;border-radius:8px;background:#e8edf4;overflow:hidden}.progress-top i{display:block;width:11%;height:100%;border-radius:8px;background:var(--amber)}
+    .hero{min-height:calc(100vh - 106px);display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:48px;padding:48px 6vw 50px}.eyebrow{color:#b45309;text-transform:uppercase;font-weight:800;letter-spacing:1.7px;font-size:11px}.hero h1{font-size:clamp(42px,5.5vw,78px);line-height:1.02;letter-spacing:-3.5px;margin:16px 0 20px;max-width:740px}.hero h1 em{font-style:normal;color:#d97706}.hero p{font-size:18px;line-height:1.7;color:var(--muted);max-width:610px;margin:0 0 32px}.primary{background:var(--ink);color:#fff;border-radius:14px;padding:15px 21px;font-weight:800;font-size:14px;box-shadow:0 11px 25px #0f172a22;transition:.2s}.primary:hover{transform:translateY(-2px);background:#1e293b}.hero-note{display:flex;align-items:center;gap:9px;margin-top:24px;font-size:12px;color:var(--muted);font-weight:600}.hero-note span{color:var(--green);font-size:17px}.academy-card{background:linear-gradient(150deg,#17243b,#0b1220 68%);border-radius:28px;padding:28px;color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden;min-height:430px}.academy-card:after{content:'';position:absolute;right:-85px;top:-100px;width:310px;height:310px;border:1px solid #fbbf2442;border-radius:50%;box-shadow:0 0 0 40px #fbbf2411,0 0 0 80px #fbbf240a}.academy-top{position:relative;z-index:1;display:flex;justify-content:space-between;color:#aab8cb;font-size:11px;font-weight:700}.academy-top b{color:#fbbf24}.academy-card h3{position:relative;z-index:1;font-size:28px;line-height:1.18;letter-spacing:-1px;margin:63px 0 8px;max-width:315px}.academy-card p{position:relative;z-index:1;color:#aab8cb;font-size:13px;line-height:1.65;max-width:300px}.stat-row{position:absolute;z-index:1;bottom:28px;left:28px;right:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat-row div{background:#ffffff10;border:1px solid #ffffff18;border-radius:13px;padding:13px}.stat-row b{font-size:18px;display:block}.stat-row span{font-size:10px;color:#aab8cb}
+    .app{display:none}.app.active{display:block}.app-grid{display:grid;grid-template-columns:240px minmax(0,1fr);gap:30px;margin-top:18px}.side{padding:16px 0}.profile{padding:16px 12px 22px;border-bottom:1px solid var(--line);margin-bottom:16px}.profile b{font-size:15px;display:block}.profile span{font-size:11px;color:var(--muted)}.menu{width:100%;text-align:left;background:transparent;color:#64748b;padding:12px 13px;border-radius:10px;font-size:13px;font-weight:700;margin:2px 0;transition:.18s}.menu:hover,.menu.on{background:#fff;color:var(--ink);box-shadow:0 4px 16px #cbd5e155}.menu .mi{display:inline-block;width:24px;color:#94a3b8}.side-foot{background:#fffbeb;border:1px solid #fef3c7;border-radius:16px;padding:15px;margin:25px 7px;color:#92400e}.side-foot b{font-size:12px}.side-foot p{font-size:10px;line-height:1.5;margin:5px 0 10px}.side-foot button{background:#f59e0b;color:#fff;border-radius:8px;padding:7px 10px;font-size:10px;font-weight:800}
+    .workspace{min-width:0;padding-top:18px}.title-row{display:flex;justify-content:space-between;align-items:flex-start;margin:8px 0 26px}.title-row h2{margin:0;font-size:29px;letter-spacing:-1.3px}.title-row p{margin:5px 0 0;font-size:12px;color:var(--muted)}.date{font-size:11px;color:var(--muted);font-weight:700;padding-top:5px}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.metric{background:#fff;border:1px solid var(--line);border-radius:17px;padding:17px 18px;min-height:115px}.metric small{display:block;color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px}.metric b{font-size:27px;letter-spacing:-1.2px;margin-top:12px;display:block}.metric p{font-size:10px;margin:4px 0 0;color:var(--muted)}.metric p strong{color:var(--green)}.flame{font-size:27px;filter:drop-shadow(0 4px 6px #f59e0b44)}.dash-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;margin-top:18px}.card{background:#fff;border:1px solid var(--line);border-radius:19px;padding:21px}.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}.card h3{font-size:14px;margin:0;letter-spacing:-.3px}.link-btn{background:transparent;color:#b45309;font-size:11px;font-weight:800}.continue{background:linear-gradient(120deg,#19263b,#334155);color:#fff;border:0;border-radius:16px;padding:20px;display:grid;grid-template-columns:auto 1fr auto;gap:17px;align-items:center}.lesson-icon{width:49px;height:49px;border-radius:14px;background:#fbbf2425;display:grid;place-items:center;font-size:24px}.continue small{color:#cbd5e1;font-size:10px;font-weight:700}.continue b{display:block;font-size:15px;margin-top:4px}.continue .go{width:33px;height:33px;border-radius:50%;background:#fff;color:#0f172a;display:grid;place-items:center}.lesson-line{height:5px;background:#ffffff2a;border-radius:5px;margin-top:11px;max-width:340px}.lesson-line i{display:block;width:44%;height:100%;background:#fbbf24;border-radius:5px}.levels{margin-top:16px}.level-item{display:grid;grid-template-columns:31px 1fr auto;gap:11px;align-items:center;padding:13px 0;border-bottom:1px solid #eff3f7}.level-item:last-child{border:0}.level-no{font-size:10px;font-weight:800;color:#94a3b8}.level-item b{font-size:12px}.level-item small{font-size:10px;color:var(--muted)}.pill{font-size:9px;font-weight:800;padding:5px 7px;border-radius:7px;background:#eef2ff;color:#4f46e5}.pill.lock{background:#f1f5f9;color:#94a3b8}.mission{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid #eff3f7}.mission:last-child{border:0}.check{width:19px;height:19px;border-radius:50%;border:1.5px solid #cbd5e1;flex:none;margin-top:1px;display:grid;place-items:center;font-size:10px}.mission.done .check{background:var(--green);border-color:var(--green);color:#fff}.mission b{font-size:11px;display:block}.mission span{font-size:10px;color:var(--muted)}.frag{margin-top:16px;padding:13px;border-radius:12px;background:#fffbeb;color:#92400e;font-size:11px;font-weight:700}.frag strong{font-size:16px}
+    .view{display:none}.view.active{display:block}.lesson-hero{background:linear-gradient(115deg,#0f172a,#263850);border-radius:20px;padding:27px;color:#fff;position:relative;overflow:hidden}.lesson-hero:after{content:'01';position:absolute;right:22px;bottom:-46px;font-size:170px;line-height:1;color:#ffffff0a;font-weight:800}.breadcrumb{font-size:10px;color:#cbd5e1;font-weight:700}.lesson-hero h2{font-size:28px;margin:14px 0 7px;letter-spacing:-1.1px}.lesson-hero p{font-size:12px;color:#cbd5e1;max-width:540px;line-height:1.6}.steps{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:24px;position:relative;z-index:1}.step{font-size:9px;color:#cbd5e1;padding:9px 4px;border-top:3px solid #475569}.step.active{color:#fff;border-color:#fbbf24}.step.done{border-color:#10b981}.content-grid{display:grid;grid-template-columns:1fr .78fr;gap:18px;margin-top:18px}.concept h3{font-size:18px}.concept p{font-size:13px;line-height:1.75;color:#475569}.highlight{border-left:3px solid var(--amber);padding:13px 15px;background:#fffbeb;font-size:12px;color:#78350f;border-radius:0 10px 10px 0;line-height:1.6}.sim{background:#e8eef3;border:8px solid #1e293b;border-radius:12px;overflow:hidden;font-family:'DM Mono',monospace}.sim-bar{background:#1e293b;color:#fff;font-size:10px;padding:10px}.sim-body{background:#f9fafb;min-height:260px;padding:15px;color:#1e293b}.sim-title{font-size:12px;font-weight:800;color:#0f766e;border-bottom:1px solid #cbd5e1;padding-bottom:11px}.sim-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:16px}.sim label{font-size:9px;color:#64748b}.sim input{font-family:inherit;width:100%;border:1px solid #cbd5e1;border-radius:4px;padding:8px;margin-top:5px;font-size:11px}.sim-submit{font-family:inherit;background:#0f766e;color:#fff;font-size:10px;padding:8px 12px;border-radius:4px;margin-top:17px}.quiz-option{width:100%;text-align:left;background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:12px;margin:7px 0;font-size:12px;color:#334155}.quiz-option:hover{border-color:#f59e0b;background:#fffbeb}.quiz-option.good{border-color:#10b981;background:#ecfdf5;color:#047857}.journal textarea{width:100%;resize:vertical;min-height:92px;border:1px solid #dbe3ec;border-radius:10px;padding:11px;font-size:12px;line-height:1.5;margin-top:11px}.secondary{border:1px solid #dbe3ec;background:#fff;border-radius:10px;padding:10px 13px;font-size:11px;font-weight:800;color:#334155;margin-top:10px}.notice{font-size:11px;color:#059669;font-weight:700;margin:10px 0 0;display:none}
+    .arena-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.arena-card{border:1px solid var(--line);background:white;border-radius:18px;padding:19px;min-height:210px}.arena-icon{font-size:25px}.arena-card h3{font-size:14px;margin:15px 0 6px}.arena-card p{font-size:11px;color:var(--muted);line-height:1.6}.arena-card .secondary{margin-top:15px}.cert{max-width:760px;background:#fffdf6;border:10px solid #0f172a;outline:1px solid #e5c879;outline-offset:-18px;padding:52px;text-align:center;margin:15px auto;position:relative}.cert .seal{position:absolute;right:42px;bottom:36px;width:84px;height:84px;border-radius:50%;background:#f59e0b;color:#fff;display:grid;place-items:center;font-size:10px;font-weight:800;border:5px solid #fcd34d}.cert .cert-logo{color:#b45309;letter-spacing:2px;font-size:11px;font-weight:800}.cert h1{font-size:37px;letter-spacing:-1.7px;margin:18px 0 8px}.cert h2{font-family:Georgia,serif;font-size:31px;margin:21px 0;color:#92400e}.cert p{font-size:12px;color:#64748b;line-height:1.7}.cert-id{font-family:'DM Mono';font-size:10px;margin-top:25px;color:#475569}.modal{position:fixed;inset:0;background:#0f172a9c;display:none;place-items:center;padding:20px;z-index:10}.modal.show{display:grid}.modal-box{width:min(440px,100%);background:#fff;border-radius:22px;padding:30px;box-shadow:var(--shadow)}.modal-box h2{letter-spacing:-1px;margin:0 0 8px}.modal-box p{font-size:12px;color:var(--muted);line-height:1.6}.modal input{width:100%;padding:14px;border-radius:11px;border:1px solid #dbe3ec;margin:15px 0;font-size:15px}.toast{position:fixed;right:24px;bottom:24px;background:#0f172a;color:#fff;padding:13px 16px;border-radius:12px;font-size:12px;font-weight:700;box-shadow:var(--shadow);transform:translateY(100px);transition:.3s;z-index:20}.toast.show{transform:translateY(0)}
+    @media(max-width:850px){.shell{padding:15px}.hero{grid-template-columns:1fr;padding:45px 9px}.academy-card{min-height:330px}.app-grid{grid-template-columns:1fr}.side{display:flex;overflow:auto;padding:0;gap:4px}.profile,.side-foot{display:none}.menu{white-space:nowrap;width:auto}.metrics{grid-template-columns:1fr 1fr}.dash-grid,.content-grid{grid-template-columns:1fr}.arena-grid{grid-template-columns:1fr}.title-row{margin-top:18px}.cert{padding:42px 20px}.cert h1{font-size:28px}.cert .seal{position:static;margin:20px auto 0}.steps{overflow:auto}.step{min-width:85px}} 
+    /* Guided lesson controls */
+    .lesson-hero:after{pointer-events:none}.step{background:transparent;text-align:left}.step:not(:disabled){cursor:pointer}.lesson-next{display:flex;justify-content:flex-end;margin-top:18px;position:relative;z-index:2}.next-btn{background:#f59e0b;color:#1f2937;border-radius:11px;padding:12px 16px;font-size:12px;font-weight:800;box-shadow:0 8px 18px #00000022}.next-btn:hover{background:#fbbf24;transform:translateY(-1px)}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #f59e0b;outline-offset:3px}.sim-ledger{width:100%;border-collapse:collapse;margin-top:16px;font-size:10px}.sim-ledger th{color:#64748b;text-align:left;font-weight:500;padding:7px;border-bottom:1px solid #cbd5e1}.sim-ledger td{padding:9px 7px;border-bottom:1px solid #e2e8f0}.sim-amount{color:#047857;font-weight:800}.sim-note{margin-top:14px;background:#ecfdf5;border-left:3px solid #10b981;padding:9px;font-size:10px;color:#047857;line-height:1.5}.sim-challenge{margin-top:15px;border:1px dashed #94a3b8;border-radius:6px;padding:12px;font-size:10px;color:#475569}.course-map{margin-top:18px}.course-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.course-level{border:1px solid #e2e8f0;background:#fff;border-radius:13px;padding:14px;text-align:left;display:grid;grid-template-columns:27px 1fr auto;gap:10px;align-items:center}.course-level:not(:disabled):hover{border-color:#f59e0b;box-shadow:0 6px 18px #f59e0b18}.course-level.current{border-color:#f59e0b;background:#fffbeb}.course-level:disabled{opacity:.55;cursor:not-allowed}.course-index{font-size:10px;font-weight:800;color:#94a3b8}.course-level b{font-size:12px;display:block}.course-level small{font-size:10px;color:#64748b;line-height:1.4}.course-status{font-size:9px;font-weight:800;border-radius:6px;padding:5px 7px;background:#ecfdf5;color:#047857}.course-status.locked{background:#f1f5f9;color:#94a3b8}.badge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.badge{border:1px solid #e2e8f0;border-radius:14px;padding:15px;background:#f8fafc}.badge.unlocked{background:#fffbeb;border-color:#fcd34d}.badge b{display:block;font-size:12px;margin:7px 0 3px}.badge span{font-size:10px;color:#64748b}.badge-icon{font-size:24px}@media(max-width:850px){.course-grid,.badge-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="nav"><div class="brand"><div class="brand-mark">T</div><span>TALLY PRIME <span style="color:#94a3b8;font-weight:600">/ ZERO TO INFINITY</span></span></div><div class="nav-right"><div class="progress-top"><i></i></div><div class="avatar" id="avatar">K</div></div></nav>
+    <section class="hero" id="landing"><div><div class="eyebrow">SarlaYash Mission presents</div><h1>Tally Prime<br><em>Zero To Infinity</em></h1><p>Master Tally Prime through immersive learning, real-world demonstrations, challenges, achievements, and verified certifications.</p><button class="primary" onclick="openWelcome()">Start My Journey &nbsp;→</button><div class="hero-note"><span>●</span> No sign-up. No barriers. Your progress stays on your device.</div></div><div class="academy-card"><div class="academy-top"><span>THE PROFESSIONAL ACADEMY</span><b>● LIVE LEARNING</b></div><h3>Build skills that move businesses forward.</h3><p>A structured path from first principles to real-world financial operations.</p><div class="stat-row"><div><b>7</b><span>Learning levels</span></div><div><b>42+</b><span>Practical lessons</span></div><div><b>∞</b><span>Possibilities</span></div></div></div></section>
+    <section class="app" id="app"><div class="app-grid"><aside class="side"><div class="profile"><b id="sideName">Future Tally Pro</b><span>Digital Foundations · Level 1</span></div><button class="menu on" data-view="dashboard"><span class="mi">⌂</span>Overview</button><button class="menu" data-view="learn"><span class="mi">▣</span>My Learning</button><button class="menu" data-view="arena"><span class="mi">◈</span>Infinity Arena</button><button class="menu" data-view="certificate"><span class="mi">✦</span>Certificate</button><div class="side-foot"><b>Knowledge fragments</b><p>Collect fragments to unlock prestigious badges.</p><strong id="sideFrags">0 / 25</strong><br><button onclick="showBadgeVault()">View badge vault</button></div></aside>
+      <section class="workspace">
+        <div class="view active" id="dashboard"><div class="title-row"><div><h2>Good morning, <span id="welcomeName">Learner</span>.</h2><p>Your path to Tally mastery is waiting.</p></div><div class="date" id="today"></div></div><div class="metrics"><div class="metric"><small>Current level</small><b>01 <span style="font-size:13px;color:#94a3b8">/ 07</span></b><p>Digital Foundations</p></div><div class="metric"><small>Total XP</small><b id="xp">0</b><p><strong>+50 XP</strong> next lesson</p></div><div class="metric"><small>Learning streak</small><b><span class="flame">🔥</span> <span id="streak">1</span></b><p>Start your streak today</p></div><div class="metric"><small>Lessons complete</small><b id="lessons">0 <span style="font-size:13px;color:#94a3b8">/ 42</span></b><p><strong id="completion">0%</strong> course completion</p></div></div><div class="dash-grid"><div><div class="card"><div class="card-head"><h3>Continue your journey</h3><span class="tiny">LEVEL 01</span></div><div class="continue"><div class="lesson-icon">◫</div><div><small>01.01 · DIGITAL FOUNDATIONS</small><b>Introduction to Accounting</b><div class="lesson-line"><i></i></div></div><button class="go" onclick="goLearn()">→</button></div><div class="levels"><div class="level-item"><span class="level-no">01</span><div><b>Digital Foundations</b><br><small>Introduction to Accounting · Business Basics · Understanding Tally</small></div><span class="pill">IN PROGRESS</span></div><div class="level-item"><span class="level-no">02</span><div><b>Tally Essentials</b><br><small>Company · Ledgers · Vouchers</small></div><span class="pill lock">LOCKED</span></div><div class="level-item"><span class="level-no">03</span><div><b>Daily Operations</b><br><small>Sales · Purchase · Payments · Inventory</small></div><span class="pill lock">LOCKED</span></div></div></div></div><div><div class="card"><div class="card-head"><h3>Today’s missions</h3><span class="tiny" id="missionCount">0 / 3</span></div><div class="mission" id="m1"><div class="check">✓</div><div><b>Complete your first lesson</b><span>+50 XP · 8 fragments</span></div></div><div class="mission" id="m2"><div class="check">✓</div><div><b>Record a learning journal</b><span>+25 XP · 4 fragments</span></div></div><div class="mission" id="m3"><div class="check">✓</div><div><b>Pass a quick quiz</b><span>+30 XP · 5 fragments</span></div></div><div class="frag">✦ &nbsp;<strong id="fragments">0</strong> fragments collected<br><span style="font-size:10px">25 unlocks your Explorer badge</span></div></div></div></div></div>
+        <div class="view" id="learn"><div class="lesson-hero"><div class="breadcrumb">LEVEL 01 &nbsp;/&nbsp; DIGITAL FOUNDATIONS &nbsp;/&nbsp; LESSON 01</div><h2>Introduction to Accounting</h2><p>Learn the language every business speaks — and see how each transaction tells a story.</p><div class="steps"><div class="step active">01 &nbsp; Concept</div><div class="step">02 &nbsp; Walkthrough</div><div class="step">03 &nbsp; Demonstration</div><div class="step">04 &nbsp; Practice</div><div class="step">05 &nbsp; Quick Quiz</div><div class="step">06 &nbsp; Journal</div></div></div><div class="content-grid"><div><div class="card concept"><h3>The core idea</h3><p>Accounting is the structured way a business records what it owns, what it owes, and how it earns. The fundamental equation keeps every business record balanced:</p><div class="highlight"><b>Assets = Liabilities + Capital</b><br>Everything a business owns is funded either by borrowed money or the owner’s investment.</div><p>In Tally Prime, this equation comes alive through ledgers and vouchers. First, let’s simulate a simple company setup.</p><div class="sim"><div class="sim-bar">TallyPrime EDU &nbsp;|&nbsp; Gateway of Tally</div><div class="sim-body"><div class="sim-title">Create Company</div><div class="sim-grid"><label>Company Name<input id="companyName" placeholder="e.g. Sunrise Traders"></label><label>Financial Year<input value="01-04-2026" readonly></label><label>Maintain<input value="Accounts with Inventory" readonly></label><label>Base Currency<input value="₹ Indian Rupee" readonly></label></div><button class="sim-submit" onclick="createCompany()">Ctrl + A &nbsp; Accept</button><span id="simMessage" style="font-size:10px;color:#059669;margin-left:8px"></span></div></div></div><div><div class="card"><div class="card-head"><h3>Quick quiz</h3><span class="tiny">1 QUESTION · 30 XP</span></div><p class="tiny" style="font-size:12px;color:#334155;margin:0 0 12px">Which item is an asset for a business?</p><button class="quiz-option" onclick="answerQuiz(this,false)">A. A loan received from the bank</button><button class="quiz-option" onclick="answerQuiz(this,true)">B. Cash held in the business bank account</button><button class="quiz-option" onclick="answerQuiz(this,false)">C. Money owed to a supplier</button><p id="quizFeedback" class="notice"></p></div><div class="card journal" style="margin-top:18px"><div class="card-head"><h3>Today’s Learning Journal</h3><span class="tiny">+25 XP</span></div><p class="tiny" style="font-size:11px;line-height:1.55">What did you learn? Where can you apply it? What will you practice tomorrow?</p><textarea id="journalText" placeholder="Write a thoughtful reflection…"></textarea><button class="secondary" onclick="saveJournal()">Save reflection</button><p class="notice" id="journalNotice">Saved locally — great work.</p></div></div></div></div>
+        <div class="view" id="arena"><div class="title-row"><div><h2>Infinity Challenge Arena</h2><p>Practice decisions that mirror real business operations.</p></div><span class="pill" style="background:#fff7ed;color:#c2410c">LOCAL RANKING</span></div><div class="arena-grid"><div class="arena-card"><div class="arena-icon">▦</div><h3>Cash Flow Crisis</h3><p>Balance a small business’s cash position before payroll day. 8 minutes.</p><button class="secondary" onclick="showToast('Challenge unlocked — your first scenario is ready.')">Start simulation</button></div><div class="arena-card"><div class="arena-icon">◉</div><h3>GST Detective</h3><p>Identify errors across purchase vouchers and produce a clean GST summary.</p><button class="secondary" onclick="showToast('Complete Level 4 to unlock GST Detective.')">Locked until Level 4</button></div><div class="arena-card"><div class="arena-icon">⌘</div><h3>Inventory Sprint</h3><p>Optimise stock movement for a growing retail business against the clock.</p><button class="secondary" onclick="showToast('Complete Level 5 to unlock Inventory Sprint.')">Locked until Level 5</button></div></div><div class="card" style="margin-top:18px"><div class="card-head"><h3>Your private local leaderboard</h3><span class="tiny">ONLY ON THIS DEVICE</span></div><div class="level-item"><span class="level-no">01</span><div><b id="leaderName">You</b><br><small>Begin your first arena challenge to appear here.</small></div><span class="pill">0 XP</span></div></div></div>
+        <div class="view" id="certificate"><div class="title-row"><div><h2>Certificate of Mastery</h2><p>Complete all seven levels to activate your verified certificate.</p></div><span class="pill lock">IN PROGRESS</span></div><div class="card"><h3>Your credential centre</h3><p style="font-size:13px;color:#64748b;line-height:1.7">Every completed level unlocks a downloadable badge. Finish Level 7 to activate the final Certificate of Mastery.</p><div class="credential-actions"><button class="secondary" onclick="showBadgeVault()">Open Badge Vault</button></div></div></div>
+      </section></div></section>
+  </main>
+  <div class="modal" id="welcomeModal"><div class="modal-box"><div class="eyebrow">Your professional academy</div><h2>What should we call you?</h2><p>No forms, passwords, or barriers. Your learning record stays securely on this device.</p><input id="nameInput" maxlength="32" placeholder="Enter your first name" autofocus><button class="primary" style="width:100%" onclick="beginJourney()">Begin my journey →</button></div></div><div class="toast" id="toast"></div>
+  <script>
+    const DEFAULT_STATE={schemaVersion:3,xp:0,fragments:0,lesson:false,quiz:false,journal:false,name:"",currentLevel:1,unlockedLevel:1,graduated:false,arenaScore:0};
+    let state;
+    try{state={...DEFAULT_STATE,...JSON.parse(localStorage.getItem('tallyInfinity')||'{}')}}catch(e){state={...DEFAULT_STATE}}
+    state.currentLevel=Math.max(1,Math.min(7,Number(state.currentLevel)||1));
+    state.unlockedLevel=Math.max(state.currentLevel,Math.min(7,Number(state.unlockedLevel)||1));
+    /* Legacy migration: prior levels are complete once the learner has reached a later level.
+       An old Level 7 record with all three generic activities done is promoted to the final credential. */
+    for(let i=1;i<state.currentLevel;i++)state['levelCompleted_'+i]=true;
+    if(state.currentLevel===7&&state.lesson&&state.quiz&&state.journal){state.levelCompleted_7=true;state.graduated=true}
+    state.schemaVersion=3;
+    const $=id=>document.getElementById(id); let toastTimer;
+    function save(){localStorage.setItem('tallyInfinity',JSON.stringify(state));render()}
+    function openWelcome(){$('welcomeModal').classList.add('show');$('nameInput').focus()}
+    function beginJourney(){const n=$('nameInput').value.trim();if(!n){$('nameInput').focus();return}state.name=n;save();$('welcomeModal').classList.remove('show');$('landing').style.display='none';$('app').classList.add('active');showToast('Welcome, '+n+' — your journey begins now.')}
+    $('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter')beginJourney()});
+    function render(){const n=state.name||'Learner';$('welcomeName').textContent=n;$('sideName').textContent=n;$('certName').textContent=n;$('leaderName').textContent=n;$('avatar').textContent=n[0].toUpperCase();$('xp').textContent=state.xp;$('fragments').textContent=state.fragments;$('sideFrags').textContent=state.fragments+' / 25';const completed=[state.lesson,state.journal,state.quiz].filter(Boolean).length;$('missionCount').textContent=completed+' / 3';$('lessons').innerHTML=(state.lesson?1:0)+' <span style="font-size:13px;color:#94a3b8">/ 42</span>';$('completion').textContent=Math.round((state.lesson?1:0)/42*100)+'%';[['m1',state.lesson],['m2',state.journal],['m3',state.quiz]].forEach(([id,yes])=>$(id).classList.toggle('done',yes));if(state.journal)$('journalText').value=state.journalText||''}
+    function add(kind,xp,frags){if(state[kind])return false;state[kind]=true;state.xp+=xp;state.fragments+=frags;save();showToast('+'+xp+' XP · +'+frags+' fragments earned');return true}
+    function createCompany(){const n=$('companyName').value.trim();if(!n){$('simMessage').textContent='Enter a company name first.';return}$('simMessage').textContent=n+' created successfully ✓';add('lesson',50,8)}
+    function answerQuiz(el,correct){if(state.quiz)return;if(correct){el.classList.add('good');$('quizFeedback').textContent='Correct. Cash is an asset because it is owned by the business.';$('quizFeedback').style.display='block';add('quiz',30,5)}else{el.style.borderColor='#ef4444';$('quizFeedback').textContent='Not quite — try another option. Think about what the business owns.';$('quizFeedback').style.display='block';$('quizFeedback').style.color='#dc2626'}}
+    function saveJournal(){const val=$('journalText').value.trim();if(!val){$('journalText').focus();return}state.journalText=val;add('journal',25,4);$('journalNotice').style.display='block';save()}
+    function goLearn(){switchView('learn')};function switchView(view){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.menu').forEach(x=>x.classList.toggle('on',x.dataset.view===view));$(view).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}document.querySelectorAll('.menu').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.view)));function showToast(msg){$('toast').textContent=msg;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),3000)}
+    function completePractice(){const field=$('practiceField');if(!field||!field.value.trim()){if(field)field.focus();return}$('simMessage').textContent='Practice submitted successfully';add('lesson',50,8)}
+    function renderQuiz(){const e=experiences[state.currentLevel-1],card=document.querySelector('.quiz-option').closest('.card');card.innerHTML='<div class="card-head"><h3>Quick quiz</h3><span class="tiny">1 QUESTION · 30 XP</span></div><p class="tiny" style="font-size:12px;color:#334155;margin:0 0 12px">'+e.question+'</p>'+e.answers.map((a,i)=>'<button class="quiz-option" onclick="answerQuiz(this,'+(i===e.correct)+')">'+a+'</button>').join('')+'<p id="quizFeedback" class="notice"></p>'}
+    const curriculum=[
+      {title:'Digital Foundations',lesson:'Introduction to Accounting',summary:'Accounting · Business Basics · Understanding Tally',concept:'Learn the accounting equation and the language every business uses.',goal:'Build a reliable foundation before touching transactions.'},
+      {title:'Tally Essentials',lesson:'Company, Ledgers & Vouchers',summary:'Company Creation · Ledger Creation · Voucher Entry',concept:'Set up the structures that make every Tally entry organised and traceable.',goal:'Create a clean company and ledger system ready for daily work.'},
+      {title:'Daily Operations',lesson:'Sales, Purchase & Cash Flow',summary:'Sales · Purchase · Payments · Receipts · Inventory',concept:'Record the transactions that keep a real business moving each day.',goal:'Turn daily business activity into accurate books.'},
+      {title:'Business Excellence',lesson:'GST & Banking Control',summary:'GST · Banking · Reconciliation · Cost Centres',concept:'Protect accuracy and compliance with GST, bank reconciliation and cost tracking.',goal:'Run a compliant, controlled finance operation.'},
+      {title:'Advanced Mastery',lesson:'Management Information Systems',summary:'MIS Reports · Advanced Inventory · Payroll · Audit',concept:'Use Tally’s advanced reports and controls to guide better decisions.',goal:'Move from data entry to management insight.'},
+      {title:'Automation',lesson:'Smarter Tally Workflows',summary:'Productivity · Data Management · Business Intelligence',concept:'Reduce repetition, protect data quality and surface useful business intelligence.',goal:'Build efficient, repeatable finance workflows.'},
+      {title:'Infinity Level',lesson:'Real Business Simulations',summary:'Case Studies · Industry Scenarios · Expert Challenges',concept:'Solve realistic business cases under practical constraints and make defensible decisions.',goal:'Demonstrate professional Tally mastery.'}
+    ];
+    const experiences=[
+      {walk:'Create your first company',demo:'Owner Capital Receipt Voucher',practice:'Set up Sunrise Traders with accounts and inventory.',question:'Which item is an asset for a business?',answers:['A bank loan','Cash held in the business bank account','Money owed to a supplier'],correct:1,journal:'How could the accounting equation help you understand a business you know?',rows:[['Bank Account','50,000','—'],['Capital Account','—','50,000']]},
+      {walk:'Build a Ledger Master',demo:'Payment Voucher: office rent',practice:'Create a Rent Expense ledger under Indirect Expenses.',question:'Which ledger group should Rent Expense belong to?',answers:['Indirect Expenses','Sundry Debtors','Capital Account'],correct:0,journal:'Which ledgers would your own business need on day one?',rows:[['Rent Expense','12,000','—'],['Bank Account','—','12,000']]},
+      {walk:'Record a Sales Invoice',demo:'Sales Voucher with inventory',practice:'Enter a cash sale of 10 notebooks at ₹50 each.',question:'Which voucher records a sale to a customer?',answers:['Payment Voucher','Sales Voucher','Contra Voucher'],correct:1,journal:'What information must be correct before you issue a sales invoice?',rows:[['Cash Account','500','—'],['Sales Account','—','500']]},
+      {walk:'Configure GST Tax Ledgers',demo:'GST purchase calculation',practice:'Record a local purchase of ₹10,000 plus 18% GST.',question:'For an intra-state sale, GST is normally split into?',answers:['CGST and SGST','IGST only','TDS and TCS'],correct:0,journal:'Where could a GST mistake create risk for a business?',rows:[['Purchases','10,000','—'],['Input CGST','900','—'],['Input SGST','900','—']]},
+      {walk:'Read a Profit & Loss Report',demo:'Management information dashboard',practice:'Identify the largest cost in the monthly report.',question:'Which report shows income and expenses for a period?',answers:['Profit & Loss','Balance Sheet only','Stock Summary only'],correct:0,journal:'Which report would you check first before making a pricing decision?',rows:[['Sales Revenue','—','2,40,000'],['Cost of Goods Sold','1,20,000','—'],['Operating Expenses','70,000','—']]},
+      {walk:'Create a Secure Data Backup',demo:'Automated business snapshot',practice:'Choose a daily backup routine and a monthly data review.',question:'Why should a business take regular data backups?',answers:['To protect data and enable recovery','To increase GST rates','To remove all vouchers'],correct:0,journal:'Which finance task would you automate first, and why?',rows:[['Daily Backup','Completed','09:00'],['Exception Report','3 alerts','Reviewed'],['Cash Flow Snapshot','Healthy','Updated']]},
+      {walk:'Assess a Retail Business Case',demo:'Cash flow decision board',practice:'Choose the action that protects cash before payroll Friday.',question:'What should be reviewed before approving a major payment?',answers:['Available cash flow and due dates','Only the company logo','The learner streak'],correct:0,journal:'What evidence would you use to defend a financial decision to a manager?',rows:[['Bank Balance','₹84,000','Available'],['Payroll Friday','₹62,000','Due'],['Supplier Invoice','₹38,000','Review']]}
+    ];
+    state.currentLevel=state.currentLevel||1;state.unlockedLevel=state.unlockedLevel||1;
+    function syncLevelUI(){const level=curriculum[state.currentLevel-1];$('sideName').nextElementSibling.textContent=level.title+' · Level '+state.currentLevel;document.querySelector('.lesson-hero .breadcrumb').textContent='LEVEL '+String(state.currentLevel).padStart(2,'0')+' / '+level.title.toUpperCase()+' / LESSON 01';document.querySelector('.lesson-hero h2').textContent=level.lesson;document.querySelector('.metric b').innerHTML=String(state.currentLevel).padStart(2,'0')+' <span style="font-size:13px;color:#94a3b8">/ 07</span>';document.querySelector('.continue small').textContent='LEVEL '+String(state.currentLevel).padStart(2,'0')+' · '+level.title.toUpperCase();document.querySelector('.continue b').textContent=level.lesson}
+    function buildCourseMap(){const existing=$('courseMap');if(existing)existing.remove();const wrap=document.createElement('div');wrap.className='card course-map';wrap.id='courseMap';wrap.innerHTML='<div class="card-head"><h3>Complete academy curriculum</h3><span class="tiny">7 LEVELS · PROGRESSIVE PATH</span></div><div class="course-grid">'+curriculum.map((level,i)=>{const n=i+1,unlocked=n<=state.unlockedLevel,status=n===state.currentLevel?'CURRENT':unlocked?'UNLOCKED':'LOCKED';return '<button class="course-level '+(n===state.currentLevel?'current':'')+'" '+(unlocked?'onclick="launchLevel('+n+')"':'disabled')+'><span class="course-index">0'+n+'</span><span><b>'+level.title+'</b><small>'+level.summary+'</small></span><span class="course-status '+(unlocked?'':'locked')+'">'+status+'</span></button>'}).join('')+'</div>';document.querySelector('#dashboard .dash-grid').after(wrap)}
+    function launchLevel(n){if(n>state.unlockedLevel)return;state.currentLevel=n;save();syncLevelUI();switchView('learn');setStage(1)}
+    const stageNames=['Concept','Walkthrough','Demonstration','Practice','Quick Quiz','Journal'];let currentStage=1;
+    const stageContent=[
+      ['The core idea','Accounting records what a business owns, what it owes, and how it earns. The fundamental equation keeps every record balanced.','Assets = Liabilities + Capital','Everything a business owns is funded by borrowing or the owner’s investment. This is the language Tally Prime helps you record.'],
+      ['Guided walkthrough','A company is the secure container for all financial information in Tally Prime. Before entering vouchers, define your business identity and financial year.','Walkthrough: company setup comes first','Use the Tally-style form below. Enter a realistic business name, review the settings, and accept it to continue.'],
+      ['Live demonstration','Watch the accounting equation work in a real business moment. An owner deposits ₹50,000 into the company’s bank account.','Cash +₹50,000 = Owner Capital +₹50,000','Both sides increase together, so the books remain balanced. In Tally, this is recorded through a receipt voucher.'],
+      ['Practice challenge','Now it is your turn. Create a company for a small business you know — a shop, consultancy, or service business.','Challenge: set up a company correctly','Choose a clear company name and accept the form. Completing the activity earns your lesson XP and knowledge fragments.'],
+      ['Quick knowledge check','Apply the concept before moving on. Identify the item the business owns rather than an amount it owes.','Knowledge check: what is an asset?','Select your answer in the quiz panel. A correct answer earns 30 XP and moves you closer to your Explorer badge.'],
+      ['Today’s learning journal','Convert today’s concept into a practical habit. A short reflection helps turn recognition into working knowledge.','Reflect, apply, practise','Write what you learned, where you can apply it, and one action you will practise tomorrow. Your journal is saved only on this device.']
+    ];
+    function renderSimulator(n){const sim=document.querySelector('.sim'),e=experiences[state.currentLevel-1],table=e.rows.map(r=>'<tr><td>'+r[0]+'</td><td class="sim-amount">'+r[1]+'</td><td>'+r[2]+'</td></tr>').join('');if(n===2)sim.innerHTML='<div class="sim-bar">TallyPrime EDU &nbsp;|&nbsp; Guided Walkthrough</div><div class="sim-body"><div class="sim-title">'+e.walk+'</div><div class="sim-grid"><label>Business / ledger name<input id="practiceField" placeholder="Enter your answer"></label><label>Learning mode<input value="TallyPrime Education" readonly></label><label>Financial year<input value="01-04-2026" readonly></label><label>Task status<input value="Ready to configure" readonly></label></div><button class="sim-submit" onclick="completePractice()">Save this setup</button><span id="simMessage" style="font-size:10px;color:#059669;margin-left:8px"></span></div>';if(n===3)sim.innerHTML='<div class="sim-bar">TallyPrime EDU &nbsp;|&nbsp; Live Demonstration</div><div class="sim-body"><div class="sim-title">'+e.demo+'</div><table class="sim-ledger"><tr><th>Particulars</th><th>Debit / status</th><th>Credit / result</th></tr>'+table+'</table><div class="sim-note"><b>Demonstration complete ✓</b><br>Notice how each business action creates an auditable Tally record.</div></div>';if(n===4)sim.innerHTML='<div class="sim-bar">TallyPrime EDU &nbsp;|&nbsp; Practice Lab</div><div class="sim-body"><div class="sim-title">Your challenge · '+curriculum[state.currentLevel-1].title+'</div><div class="sim-challenge"><b>Scenario:</b> '+e.practice+'</div><div class="sim-grid"><label>Your entry / decision<input id="practiceField" placeholder="Write the account, voucher, or action"></label><label>Validation<input value="Check before accepting" readonly></label></div><button class="sim-submit" onclick="completePractice()">Submit practice challenge</button><span id="simMessage" style="font-size:10px;color:#059669;margin-left:8px"></span></div>'}
+    function setStage(n){currentStage=n;let data=stageContent[n-1],level=curriculum[state.currentLevel-1];if(state.currentLevel>1&&n===1)data=[level.lesson,level.concept,'Level '+state.currentLevel+' learning outcome',level.goal];const concept=document.querySelector('.concept'),paragraphs=concept.querySelectorAll('p'),sim=document.querySelector('.sim'),quiz=document.querySelector('.quiz-option').closest('.card'),journal=document.querySelector('.journal');concept.querySelector('h3').textContent=data[0];paragraphs[0].textContent=data[1];concept.querySelector('.highlight').innerHTML='<b>'+data[2]+'</b>';paragraphs[1].textContent=data[3];sim.style.display=(n>=2&&n<=4)?'block':'none';if(n>=2&&n<=4)renderSimulator(n);quiz.style.display=n===5?'block':'none';journal.style.display=n===6?'block':'none';document.querySelectorAll('.step').forEach((el,i)=>{el.classList.toggle('active',i===n-1);el.classList.toggle('done',i<n-1)});document.querySelector('.lesson-hero p').textContent='Step '+n+' of 6 — '+stageNames[n-1]+'. Work through this step, then continue when you are ready.';const btn=$('nextLessonBtn');btn.innerHTML=n===6?'Complete Level '+state.currentLevel+' ✓':'Continue to '+stageNames[n].toLowerCase()+' →';window.scrollTo({top:document.querySelector('.lesson-hero').offsetTop-15,behavior:'smooth'})}
+    function nextStage(){if(currentStage<6){setStage(currentStage+1);return}if(state.currentLevel<7){state.unlockedLevel=Math.max(state.unlockedLevel,state.currentLevel+1);state.currentLevel++;save();syncLevelUI();buildCourseMap();switchView('dashboard');showToast('Level complete! Level '+state.currentLevel+' is now unlocked.')}else{switchView('dashboard');showToast('Infinity Level complete — outstanding work!')}}
+    document.querySelectorAll('.step').forEach((el,i)=>{el.onclick=()=>setStage(i+1);el.setAttribute('role','button');el.tabIndex=0});
+    const nextWrap=document.createElement('div');nextWrap.className='lesson-next';nextWrap.innerHTML='<button class="next-btn" id="nextLessonBtn" type="button">Continue to walkthrough →</button>';document.querySelector('.steps').after(nextWrap);$('nextLessonBtn').addEventListener('click',nextStage);
+    var originalSetStage=setStage;
+    setStage=function(n){originalSetStage(n);const e=experiences[state.currentLevel-1],level=curriculum[state.currentLevel-1],cards=[
+      [level.lesson,level.concept,'Professional outcome',level.goal],
+      ['Guided walkthrough · '+e.walk,'Follow the Tally-style form below and make the exact setup choice required for this level.','Do it in Tally, not just in theory',e.practice],
+      ['Live demonstration · '+e.demo,'Study the record below line by line. It shows the business event and the corresponding Tally impact.','Every decision leaves an audit trail','Use the debit, credit, status, and result columns to explain what changed.'],
+      ['Practice challenge · '+level.title,e.practice,'Your turn: make the decision','Enter your answer in the Practice Lab and submit it to earn your lesson reward.'],
+      ['Quick knowledge check',e.question,'Show that you understand the decision','Choose an answer in the quiz panel. Your result is stored in your local progress.'],
+      ['Reflection journal',e.journal,'Turn knowledge into a habit','Use the journal panel to write a practical takeaway from '+level.title+'.']
+    ],data=cards[n-1],concept=document.querySelector('.concept'),paragraphs=concept.querySelectorAll('p');concept.querySelector('h3').textContent=data[0];paragraphs[0].textContent=data[1];concept.querySelector('.highlight').innerHTML='<b>'+data[2]+'</b>';paragraphs[1].textContent=data[3];if(n===5)renderQuiz();if(n===6){const journal=document.querySelector('.journal');journal.querySelector('.tiny').textContent=e.journal;let checklist=$('levelChecklist');if(!checklist){checklist=document.createElement('p');checklist.id='levelChecklist';checklist.className='highlight';journal.querySelector('.secondary').before(checklist)}const level=state.currentLevel;checklist.innerHTML='<b>Level completion checklist</b><br>'+(state['practice_'+level]?'✓':'○')+' Practice challenge &nbsp; '+(state['quiz_'+level]?'✓':'○')+' Quick quiz &nbsp; '+(state['journal_'+level]?'✓':'○')+' Journal';}};
+    completePractice=function(){const field=$('practiceField'),key='practice_'+state.currentLevel;if(!field||!field.value.trim()){if(field)field.focus();return}$('simMessage').textContent='Practice submitted successfully ✓';if(!state[key]){state[key]=true;state.lesson=true;state.xp+=50;state.fragments+=8;save();showToast('+50 XP · +8 fragments earned')}};
+    answerQuiz=function(el,correct){const key='quiz_'+state.currentLevel;if(state[key])return;if(correct){el.classList.add('good');$('quizFeedback').textContent='Correct — this is the right Tally decision.';$('quizFeedback').style.display='block';state[key]=true;state.quiz=true;state.xp+=30;state.fragments+=5;save();showToast('+30 XP · +5 fragments earned')}else{el.style.borderColor='#ef4444';$('quizFeedback').textContent='Not quite — review the scenario and try another option.';$('quizFeedback').style.display='block';$('quizFeedback').style.color='#dc2626'}};
+    saveJournal=function(){const val=$('journalText').value.trim(),key='journal_'+state.currentLevel;if(!val){$('journalText').focus();return}state.journalText=val;state['journalText_'+state.currentLevel]=val;if(!state[key]){state[key]=true;state.journal=true;state.xp+=25;state.fragments+=4;showToast('+25 XP · +4 fragments earned')}save();$('journalNotice').style.display='block';setStage(6)};
+    const levelBadgeNames=[
+      ['Foundation Explorer','✦'],
+      ['Ledger Master','▣'],
+      ['Operations Pro','◈'],
+      ['GST Guardian','◇'],
+      ['Tally Strategist','♛'],
+      ['Automation Architect','⌘'],
+      ['Infinity Achiever','∞']
+    ];
+    function svgEsc(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+    function downloadBlob(filename,content,type='image/svg+xml'){
+      const blob=new Blob([content],{type});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+    }
+    function badgeSvg(level){
+      const title=curriculum[level-1]?.title||('Level '+level);
+      const badge=levelBadgeNames[level-1]||['Level Badge','✦'];
+      const name=state.name||'Learner';
+      const date=new Date().toLocaleDateString('en-GB');
+      return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+<defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0f172a"/><stop offset="1" stop-color="#263850"/></linearGradient></defs>
+<rect width="1200" height="900" fill="#f8fafc"/>
+<rect x="45" y="45" width="1110" height="810" rx="42" fill="white" stroke="#e5c879" stroke-width="3"/>
+<rect x="70" y="70" width="1060" height="760" rx="32" fill="url(#g)"/>
+<circle cx="600" cy="315" r="145" fill="#f59e0b" opacity=".16"/>
+<circle cx="600" cy="315" r="112" fill="none" stroke="#fbbf24" stroke-width="8"/>
+<text x="600" y="335" text-anchor="middle" font-family="Arial,sans-serif" font-size="82" font-weight="800" fill="#fbbf24">${svgEsc(badge[1])}</text>
+<text x="600" y="145" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="800" letter-spacing="5" fill="#fbbf24">SARLAYASH MISSION</text>
+<text x="600" y="190" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#cbd5e1">TALLY PRIME · ZERO TO INFINITY</text>
+<text x="600" y="520" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="800" fill="white">LEVEL ${level} · ${svgEsc(badge[0].toUpperCase())}</text>
+<text x="600" y="565" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#cbd5e1">${svgEsc(title)}</text>
+<text x="600" y="635" text-anchor="middle" font-family="Georgia,serif" font-size="32" fill="#fbbf24">${svgEsc(name)}</text>
+<text x="600" y="690" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" fill="#cbd5e1">Credential unlocked on ${svgEsc(date)}</text>
+<text x="600" y="755" text-anchor="middle" font-family="monospace" font-size="15" fill="#94a3b8">LEVEL-BADGE-${String(level).padStart(2,'0')}-TPI-2026</text>
+</svg>`;
+    }
+    function downloadLevelBadge(level){
+      if(!completedLevel(level)){showToast('Complete all 3 Level '+level+' activities before downloading its badge.');return}
+      downloadBlob('Tally-Prime-Level-'+level+'-Badge-'+(state.name||'Learner').replace(/[^a-z0-9]+/gi,'-')+'.svg',badgeSvg(level));
+      showToast('Level '+level+' badge downloaded.');
+    }
+    function earnedBadges(){
+      return curriculum.map((level,i)=>({
+        level:i+1,name:levelBadgeNames[i][0],need:i+1,icon:levelBadgeNames[i][1],earned:completedLevel(i+1),title:level.title
+      }));
+    }
+    function showBadgeVault(){
+      let modal=$('badgeVault');
+      if(!modal){modal=document.createElement('div');modal.id='badgeVault';modal.className='modal';document.body.append(modal)}
+      const badges=earnedBadges();
+      modal.innerHTML='<div class="modal-box" style="width:min(900px,100%)"><div class="card-head"><div><div class="eyebrow">Credential centre</div><h2 style="margin:5px 0">Badge Vault</h2></div><button class="secondary" onclick="document.getElementById(\'badgeVault\').classList.remove(\'show\')">Close</button></div><p>Complete each level to unlock its badge. Download any earned badge as a high-resolution SVG.</p><div class="badge-grid">'+badges.map(b=>'<div class="badge '+(b.earned?'unlocked':'locked')+'"><div class="badge-icon">'+b.icon+'</div><b>Level '+b.level+' · '+b.name+'</b><span>'+b.title+' · '+(b.earned?'UNLOCKED':'LOCKED')+'</span><div class="badge-actions">'+(b.earned?'<button class="download-btn" onclick="downloadLevelBadge('+b.level+')">↓ Download badge</button>':'<button class="download-btn" disabled>Locked</button>')+'</div></div>').join('')+'</div><p class="credential-note">Your credentials are generated locally from the learner name and progress stored on this device.</p></div>';
+      modal.classList.add('show');
+    }
+    function certificateSvg(){
+      const id=state.certificateId||'SYM-TPI-2026-'+Math.random().toString(36).slice(2,8).toUpperCase();
+      state.certificateId=id;
+      localStorage.setItem('tallyInfinity',JSON.stringify(state));
+      const name=state.name||'Learner',date=new Date().toLocaleDateString('en-GB');
+      return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100">
+<rect width="1600" height="1100" fill="#fffaf0"/>
+<rect x="38" y="38" width="1524" height="1024" rx="18" fill="none" stroke="#0f172a" stroke-width="22"/>
+<rect x="62" y="62" width="1476" height="976" rx="10" fill="none" stroke="#e5c879" stroke-width="4"/>
+<text x="800" y="170" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="800" letter-spacing="8" fill="#b45309">SARLAYASH MISSION</text>
+<text x="800" y="255" text-anchor="middle" font-family="Georgia,serif" font-size="70" font-weight="700" fill="#0f172a">Certificate of Mastery</text>
+<text x="800" y="330" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#64748b">This certificate is proudly presented to</text>
+<text x="800" y="450" text-anchor="middle" font-family="Georgia,serif" font-size="62" font-weight="700" fill="#92400e">${svgEsc(name)}</text>
+<text x="800" y="520" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" fill="#64748b">for successfully completing all seven levels of</text>
+<text x="800" y="570" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" font-weight="800" fill="#0f172a">Tally Prime: Zero To Infinity with Kapil</text>
+<circle cx="800" cy="730" r="88" fill="#f59e0b" stroke="#fcd34d" stroke-width="9"/>
+<text x="800" y="720" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="800" fill="white">VERIFIED</text>
+<text x="800" y="748" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="800" fill="white">MASTERY</text>
+<text x="800" y="890" text-anchor="middle" font-family="monospace" font-size="17" fill="#475569">CERTIFICATE ID · ${svgEsc(id)}</text>
+<text x="800" y="925" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" fill="#64748b">COMPLETED · ${svgEsc(date)}</text>
+<text x="800" y="970" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#94a3b8">LOCAL CREDENTIAL · Generated from this learning device</text>
+</svg>`;
+    }
+    function downloadCertificate(){
+      if(!state.graduated){showToast('Complete all seven levels to unlock the certificate.');return}
+      downloadBlob('Tally-Prime-Certificate-of-Mastery-'+(state.name||'Learner').replace(/[^a-z0-9]+/gi,'-')+'.svg',certificateSvg());
+      showToast('Certificate downloaded as a high-resolution SVG.');
+    }
+    function ensureFinalCompletionState(){
+      // Production-safe migration: any learner who reached Level 7 and completed
+      // the final three activities is considered graduated, even if an older
+      // deployment did not persist levelCompleted_7.
+      const level=Number(state.currentLevel)||1;
+      if(level>=7 && state.lesson && state.quiz && state.journal){
+        for(let i=1;i<=7;i++) state['levelCompleted_'+i]=true;
+        state.currentLevel=7;
+        state.unlockedLevel=7;
+        state.graduated=true;
+        state.schemaVersion=4;
+        localStorage.setItem('tallyInfinity',JSON.stringify(state));
+      }
+      return !!state.graduated;
+    }
+    function completedLevelSafe(n){
+      if(n<1||n>7)return false;
+      return !!(state['levelCompleted_'+n] ||
+        (state['practice_'+n] && state['quiz_'+n] && state['journal_'+n]) ||
+        (n<Number(state.currentLevel||1)) ||
+        (n===7 && state.graduated));
+    }
+    function renderArena(){
+      const arena=$('arena');
+      if(!arena)return;
+      const ready=ensureFinalCompletionState(),score=Number(state.arenaScore)||0;
+      const challenges=[
+        ['Cash Flow Crisis','Protect payroll cash before Friday.','40'],
+        ['GST Detective','Spot the compliance error in a purchase register.','55'],
+        ['Inventory Sprint','Choose the stock action with the best margin impact.','65']
+      ];
+      arena.innerHTML='<div class="title-row"><div><h2>Infinity Challenge Arena</h2><p>'+
+        (ready?'Your mastery credential is active. Take on timed business decisions.':'Complete all seven levels to unlock the Arena.')+
+        '</p></div><span class="pill" style="background:#fff7ed;color:#c2410c">LOCAL SCORE '+score+'</span></div>'+
+        '<div class="arena-grid">'+challenges.map((a,i)=>
+          '<div class="arena-card"><div class="arena-icon">'+['▦','◉','⌘'][i]+'</div><h3>'+a[0]+'</h3><p>'+a[1]+'</p>'+
+          '<button class="secondary" '+(ready?'onclick="playArena('+i+','+a[2]+')"':'disabled')+'>'+
+          (ready?'Start challenge · +'+a[2]+' XP':'Unlock after Level 7')+'</button></div>'
+        ).join('')+'</div><div class="card" style="margin-top:18px"><div class="card-head"><h3>Your private local leaderboard</h3><span class="tiny">ONLY ON THIS DEVICE</span></div><div class="level-item"><span class="level-no">01</span><div><b>'+svgEsc(state.name||'Learner')+'</b><br><small>'+
+        (score?'Arena challenger — keep raising your score.':'No completed arena challenges yet.')+
+        '</small></div><span class="pill">'+score+' XP</span></div></div>';
+    }
+    function playArena(index,reward){
+      if(state['arena_'+index]){showToast('This Arena challenge is already completed on this device.');return}
+      const scenarios=[
+        {title:'Cash Flow Crisis',question:'You have ₹84,000 available, payroll of ₹62,000 due Friday, and a ₹38,000 supplier invoice. What is the safest immediate decision?',answers:['Approve the supplier payment in full today','Protect payroll cash and negotiate/re-schedule the supplier payment','Ignore both obligations'],correct:1},
+        {title:'GST Detective',question:'An intra-state purchase of ₹10,000 carries 18% GST. Which tax split should appear?',answers:['CGST ₹900 + SGST ₹900','IGST ₹1,800','No GST'],correct:0},
+        {title:'Inventory Sprint',question:'A fast-moving item has strong margin and low stock. What should you review first?',answers:['Reorder level, cash impact and expected demand','Only the product colour','Only the learner score'],correct:0}
+      ];
+      const sc=scenarios[index];
+      let modal=$('arenaModal');
+      if(!modal){modal=document.createElement('div');modal.id='arenaModal';modal.className='modal';document.body.appendChild(modal)}
+      modal.innerHTML='<div class="modal-box" style="width:min(720px,100%)"><div class="card-head"><div><div class="eyebrow">Infinity Arena</div><h2 style="margin:5px 0">'+sc.title+'</h2></div><button class="secondary" onclick="closeArenaModal()">Close</button></div><p style="line-height:1.7">'+sc.question+'</p><div id="arenaAnswers">'+sc.answers.map((a,i)=>'<button class="quiz-option" onclick="resolveArena('+index+','+reward+','+i+','+sc.correct+')">'+String.fromCharCode(65+i)+'. '+a+'</button>').join('')+'</div><p id="arenaFeedback" class="notice"></p></div>';
+      modal.classList.add('show');
+    }
+    function closeArenaModal(){const m=$('arenaModal');if(m)m.classList.remove('show')}
+    function resolveArena(index,reward,choice,correct){
+      const feedback=$('arenaFeedback');
+      if(choice!==correct){feedback.textContent='Not quite — review the business evidence and choose again.';feedback.style.display='block';return}
+      state.arenaScore=(state.arenaScore||0)+reward;state.xp=(state.xp||0)+reward;state.fragments=(state.fragments||0)+10;state['arena_'+index]=true;save();renderArena();$('arenaModal').classList.remove('show');showToast('Arena challenge complete! +'+reward+' XP · +10 fragments');
+    }
+    function renderCertificate(){
+      const cert=$('certificate');
+      if(!cert)return;
+      const ready=ensureFinalCompletionState() || completedLevelSafe(7);
+      if(!ready){
+        cert.innerHTML='<div class="title-row"><div><h2>Certificate of Mastery</h2><p>Finish the Infinity Level journal and complete Level 7 to activate this credential.</p></div><span class="pill lock">LOCKED</span></div><div class="card"><h3>Completion requirement</h3><p style="font-size:13px;color:#64748b;line-height:1.7">Complete the practice challenge, quick quiz, and learning journal for all seven levels. Every level gives you a downloadable badge; Level 7 unlocks the final certificate.</p><div class="credential-actions"><button class="secondary" onclick="showBadgeVault()">Open Badge Vault</button></div></div>';
+        return;
+      }
+      state.graduated=true;
+      state.currentLevel=7;
+      state.unlockedLevel=7;
+      if(!state.certificateId)state.certificateId='SYM-TPI-2026-'+Math.random().toString(36).slice(2,8).toUpperCase();
+      localStorage.setItem('tallyInfinity',JSON.stringify(state));
+      const id=state.certificateId;
+      cert.innerHTML='<div class="title-row"><div><h2>Certificate of Mastery</h2><p>Your final credential is ready.</p></div><span class="pill" style="background:#ecfdf5;color:#047857">UNLOCKED</span></div><div class="cert"><div class="cert-logo">SARLAYASH MISSION</div><h1>Verified Certificate of Mastery</h1><p>This certificate is proudly presented to</p><h2>'+svgEsc(state.name||'Learner')+'</h2><p>for completing all seven levels of<br><b>Tally Prime: Zero To Infinity with Kapil</b></p><div class="cert-id">CERTIFICATE ID · '+id+'<br>COMPLETED · '+new Date().toLocaleDateString('en-GB')+'<br>LOCAL CREDENTIAL · Generated from this learning device</div><div class="seal">VERIFIED<br>MASTERY</div><div class="credential-actions"><button class="download-btn" onclick="downloadCertificate()">↓ Download certificate</button><button class="secondary" onclick="window.print()">Print / Save as PDF</button><button class="secondary" onclick="showBadgeVault()">View level badges</button></div><div class="credential-note">For a PDF, choose “Save as PDF” in the browser print dialog.</div></div>';
+    }
+    function closeCredentialModal(){const m=$('credentialModal');if(m)m.classList.remove('show')}
+    function showCredentialModal(level,certificate){
+      let modal=$('credentialModal');
+      if(!modal){modal=document.createElement('div');modal.id='credentialModal';modal.className='modal';document.body.appendChild(modal)}
+      if(certificate){
+        modal.innerHTML='<div class="modal-box" style="width:min(760px,100%);text-align:center"><div class="eyebrow">Final credential unlocked</div><h2>🏆 Certificate of Mastery</h2><p>Congratulations, <b>'+svgEsc(state.name||'Learner')+'</b>. You completed all seven levels.</p><div class="credential-actions" style="justify-content:center"><button class="download-btn" onclick="downloadCertificate()">↓ Download certificate</button><button class="secondary" onclick="closeCredentialModal()">Continue</button></div></div>';
+      }else{
+        modal.innerHTML='<div class="modal-box" style="width:min(760px,100%);text-align:center"><div class="eyebrow">Credential unlocked</div><h2>🏅 Level '+level+' Badge</h2><p><b>'+svgEsc(curriculum[level-1].title)+'</b> is now complete.</p><img alt="Level '+level+' badge" style="width:100%;max-width:620px;border-radius:16px;border:1px solid #e5e7eb" src="data:image/svg+xml;charset=utf-8,'+encodeURIComponent(badgeSvg(level))+'"><div class="credential-actions" style="justify-content:center"><button class="download-btn" onclick="downloadLevelBadge('+level+')">↓ Download Level '+level+' badge</button><button class="secondary" onclick="closeCredentialModal()">Continue</button></div></div>';
+      }
+      modal.classList.add('show');
+    }
+
+    var originalNextStage=nextStage;
+    nextStage=function(){
+      if(currentStage===6){
+        const level=state.currentLevel,missing=[];
+        if(!state['practice_'+level])missing.push('practice challenge');
+        if(!state['quiz_'+level])missing.push('quick quiz');
+        if(!state['journal_'+level])missing.push('learning journal');
+        if(missing.length){showToast('Before completing Level '+level+': finish '+missing.join(', ')+'.');return}
+        const firstCompletion=!state['levelCompleted_'+level];
+        if(firstCompletion){
+          state['levelCompleted_'+level]=true;
+          state.xp=(state.xp||0)+25;
+          state.fragments=(state.fragments||0)+8;
+          showToast('Level '+level+' badge unlocked! +25 XP · +8 fragments');
+        }
+        if(level===7){
+          state.graduated=true;
+          state.unlockedLevel=7;
+          save();renderCertificate();buildCourseMap();switchView('certificate');
+          showToast('Congratulations — Certificate of Mastery unlocked!');
+          setTimeout(function(){showCredentialModal(7,true)},120);
+          return;
+        }
+        if(firstCompletion)setTimeout(function(){showCredentialModal(level,false)},120);
+        state.unlockedLevel=Math.max(state.unlockedLevel,level+1);
+        state.currentLevel=level+1;
+        currentStage=1;
+        save();syncLevelUI();buildCourseMap();switchView('dashboard');
+        showToast('Level '+level+' complete — Level '+state.currentLevel+' is now unlocked.');
+        return;
+      }
+      originalNextStage();
+    };
+    var originalSwitchView=switchView;
+    switchView=function(view){
+      const target=$(view);
+      if(!target)return;
+      try{
+        originalSwitchView(view);
+        if(view==='arena')renderArena();
+        if(view==='certificate')renderCertificate();
+      }catch(err){
+        console.error('Tally navigation render error:',err);
+        target.innerHTML='<div class="card" style="border-color:#fecaca;background:#fff7f7"><h2 style="margin:0 0 8px">This section could not render</h2><p style="color:#64748b">Your learning record is safe. Refreshing the credential view is safe to try again.</p><button class="secondary" onclick="switchView(\''+view+'\')">Retry</button></div>';
+      }
+    };
+    function completedLevel(n){if(n<1||n>7)return false;return !!(state['levelCompleted_'+n]||(state['practice_'+n]&&state['quiz_'+n]&&state['journal_'+n])||(n<state.currentLevel&&n<=state.unlockedLevel)||(n===7&&state.graduated))}
+    function completedLevelCount(){let count=0;for(let i=1;i<=7;i++)if(completedLevel(i))count++;return count}
+    render=function(){
+      const n=state.name||'Learner',set=(id,value)=>{const el=$(id);if(el)el.textContent=value};
+      set('welcomeName',n);set('sideName',n);set('certName',n);set('leaderName',n);set('avatar',n[0].toUpperCase());
+      set('xp',state.xp||0);set('fragments',state.fragments||0);set('sideFrags',(state.fragments||0)+' / 25');
+      const completed=[state.lesson,state.journal,state.quiz].filter(Boolean).length;
+      set('missionCount',completed+' / 3');
+      const levelCount=completedLevelCount();
+      const stageProgress=state.graduated?0:Math.max(0,Math.min(6,(state.currentLevel||1)-1));
+      const lessonsDone=Math.min(42,levelCount*6+stageProgress);
+      const lessons=$('lessons');if(lessons)lessons.innerHTML=lessonsDone+' <span style="font-size:13px;color:#94a3b8">/ 42</span>';
+      set('completion',Math.round(lessonsDone/42*100)+'%');
+      [['m1',state.lesson],['m2',state.journal],['m3',state.quiz]].forEach(([id,yes])=>{const el=$(id);if(el)el.classList.toggle('done',yes)});
+      const journal=$('journalText');if(journal&&state.journal)journal.value=state['journalText_'+state.currentLevel]||state.journalText||'';
+      const progress=document.querySelector('.progress-top i');if(progress)progress.style.width=Math.max(4,Math.min(100,Math.round(lessonsDone/42*100)))+'%';
+    };
+    $('today').textContent=new Intl.DateTimeFormat('en',{weekday:'long',month:'long',day:'numeric'}).format(new Date());ensureFinalCompletionState();render();syncLevelUI();buildCourseMap();document.querySelector('.side-foot button').onclick=showBadgeVault;renderArena();renderCertificate();if(state.name){$('landing').style.display='none';$('app').classList.add('active')}else{setTimeout(openWelcome,80)}
+  </script>
+</body></html>
