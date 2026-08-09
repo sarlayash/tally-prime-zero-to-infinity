@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -78,7 +78,33 @@
     ];
     state.currentLevel=state.currentLevel||1;state.unlockedLevel=state.unlockedLevel||1;
     function syncLevelUI(){const level=curriculum[state.currentLevel-1];$('sideName').nextElementSibling.textContent=level.title+' · Level '+state.currentLevel;document.querySelector('.lesson-hero .breadcrumb').textContent='LEVEL '+String(state.currentLevel).padStart(2,'0')+' / '+level.title.toUpperCase()+' / LESSON 01';document.querySelector('.lesson-hero h2').textContent=level.lesson;document.querySelector('.metric b').innerHTML=String(state.currentLevel).padStart(2,'0')+' <span style="font-size:13px;color:#94a3b8">/ 07</span>';document.querySelector('.continue small').textContent='LEVEL '+String(state.currentLevel).padStart(2,'0')+' · '+level.title.toUpperCase();document.querySelector('.continue b').textContent=level.lesson}
-    function buildCourseMap(){const existing=$('courseMap');if(existing)existing.remove();const wrap=document.createElement('div');wrap.className='card course-map';wrap.id='courseMap';wrap.innerHTML='<div class="card-head"><h3>Complete academy curriculum</h3><span class="tiny">7 LEVELS · PROGRESSIVE PATH</span></div><div class="course-grid">'+curriculum.map((level,i)=>{const n=i+1,unlocked=n<=state.unlockedLevel,status=n===state.currentLevel?'CURRENT':unlocked?'UNLOCKED':'LOCKED';return '<button class="course-level '+(n===state.currentLevel?'current':'')+'" '+(unlocked?'onclick="launchLevel('+n+')"':'disabled')+'><span class="course-index">0'+n+'</span><span><b>'+level.title+'</b><small>'+level.summary+'</small></span><span class="course-status '+(unlocked?'':'locked')+'">'+status+'</span></button>'}).join('')+'</div>';document.querySelector('#dashboard .dash-grid').after(wrap)}
+    function buildCourseMap(){const existing=$('courseMap');if(existing)existing.remove();const wrap=document.createElement('div');wrap.className='card course-map';wrap.id='courseMap';wrap.innerHTML='<div class="card-head"><h3>Complete academy curriculum</h3><span class="tiny">7 LEVELS · PROGRESSIVE PATH</span></div><div class="course-grid">'+curriculum.map((level,i)=>{const n=i+1,unlocked=n<=state.unlockedLevel,status=n===state.currentLevel?'CURRENT':unlocked?'UNLOCKED':'LOCKED';return '<button class="course-level '+(n===state.currentLevel?'current':'')+'" '+(unlocked?'onclick="launchLevel('+n+')"':'disabled')+'><span class="course-index">0'+n+'</span><span><b>'+level.title+'</b><small>'+level.summary+'</small></span><span class="course-status '+(unlocked?'':'locked')+'">'+status+'</span></button>'}).join('')+'</div>';document.querySelector('#dashboard .dash-grid').after(wrap);
+    renderHomeCertificateLink();
+  }
+  function renderHomeCertificateLink(){
+    let card = homeCertificateCard;
+    if(!card){
+      card = document.createElement('div');
+      card.id = 'homeCertificateCard';
+      card.className = 'card';
+      card.style.marginTop = '18px';
+      const map = courseMap;
+      if(map) map.after(card);
+    }
+    const ready = !!(state.graduated || completedLevelSafe(7));
+    card.innerHTML =
+      '<div style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap">' +
+        '<div><div class="eyebrow">FINAL CREDENTIAL</div>' +
+        '<h3 style="margin:5px 0 4px;font-size:16px">Certificate of Mastery</h3>' +
+        '<p style="margin:0;color:#64748b;font-size:11px;line-height:1.6">' +
+        (ready ? 'You have completed the full seven-level journey. Your certificate is ready to download.' : 'Complete all 7 levels to unlock your Certificate of Mastery.') +
+        '</p></div>' +
+        '<button class="' + (ready ? 'primary' : 'secondary') + '" ' +
+        'style="margin-top:0;white-space:nowrap;'+(ready?'':'opacity:.65;cursor:not-allowed')+'" ' +
+        (ready ? 'onclick="downloadCertificate()"' : 'onclick="showToast(\\'Complete all 7 levels to unlock your certificate.\\')"') +
+        '>' + (ready ? 'â†“ Download Certificate' : 'ðŸ”’ Certificate Locked') + '</button>' +
+      '</div>';
+  }"
     function launchLevel(n){if(n>state.unlockedLevel)return;state.currentLevel=n;save();syncLevelUI();switchView('learn');setStage(1)}
     const stageNames=['Concept','Walkthrough','Demonstration','Practice','Quick Quiz','Journal'];let currentStage=1;
     const stageContent=[
@@ -348,3 +374,4 @@
     $('today').textContent=new Intl.DateTimeFormat('en',{weekday:'long',month:'long',day:'numeric'}).format(new Date());ensureFinalCompletionState();render();syncLevelUI();buildCourseMap();document.querySelector('.side-foot button').onclick=showBadgeVault;if(state.name){$('landing').style.display='none';$('app').classList.add('active')}else{setTimeout(openWelcome,80)}
   </script>
 </body></html>
+
